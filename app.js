@@ -1,26 +1,26 @@
 const express = require("express");
-// const cors = require("cors");
-// const passport = require("passport");
-// const userRoutes = require("./routes/usersRoutes");
-// const messagesRoutes = require("./routes/messagesRoutes");
-// const roomsRoutes = require("./routes/roomsRoutes");
-// const { localStrategy, jwtStrategy } = require("./middleware/passport");
-// const db = require("./db/models");
-// const path = require("path");
+const cors = require("cors");
+const passport = require("passport");
+ const { localStrategy, jwtStrategy } = require("./middleware/passport");
+ const path = require("path");
+
+//routes
+const userRoutes = require("./routes/usersRoutes");
+
 
 const app = express();
-// app.use(cors());
+app.use(cors());
 app.use(express.json());
 
-//passport
-// app.use(passport.initialize());
-// passport.use(localStrategy);
-// passport.use(jwtStrategy);
+//Passport
+app.use(passport.initialize());
+passport.use(localStrategy);
+passport.use(jwtStrategy);
 
 //Routes
-// app.use("/", userRoutes);
+app.use("/", userRoutes);
 
-// app.use("/media", express.static(path.join(__dirname, "media")));
+app.use("/media", express.static(path.join(__dirname, "media")));
 
 //error middleware
 app.use((err, req, res, next) => {
