@@ -5,7 +5,11 @@ const passport = require("passport");
 const upload = require("../middleware/multer");
 
 //controllers
-const { signup, signin } = require("../controllers/usersController");
+const {
+  signup,
+  signin,
+  updateUser,
+} = require("../controllers/usersController");
 
 const router = express.Router();
 
@@ -21,6 +25,13 @@ router.post(
   "/signin",
   passport.authenticate("local", { session: false }),
   signin
+);
+router.put(
+  "/updateuser",
+  passport.authenticate("jwt", { session: false }),
+  upload.single("image"),
+
+  updateUser
 );
 
 module.exports = router;
