@@ -49,3 +49,15 @@ const generateToken = (user) => {
   const token = jwt.sign(payload, "giveitasecretkey");
   return token;
 };
+
+exports.updateUser = async (req, res, next) => {
+  try {
+    if (req.file) {
+      req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
+    }
+    await req.user.update(req.body);
+    res.status(201).json(req.user);
+  } catch (error) {
+    next(error);
+  }
+};

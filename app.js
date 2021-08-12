@@ -1,12 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 const passport = require("passport");
- const { localStrategy, jwtStrategy } = require("./middleware/passport");
- const path = require("path");
+const { localStrategy, jwtStrategy } = require("./middleware/passport");
+const path = require("path");
 
 //routes
 const userRoutes = require("./routes/usersRoutes");
-
+const ideasRoutes = require("./routes/ideaRoutes");
 
 const app = express();
 app.use(cors());
@@ -19,6 +19,7 @@ passport.use(jwtStrategy);
 
 //Routes
 app.use("/", userRoutes);
+app.use("/ideas", ideasRoutes);
 
 app.use("/media", express.static(path.join(__dirname, "media")));
 

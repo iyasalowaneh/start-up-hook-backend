@@ -11,14 +11,12 @@ module.exports = {
       firstName: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
       },
       lastName: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
       },
-     
+
       email: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -28,7 +26,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      confirmPassword:{
+      confirmPassword: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -36,8 +34,14 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      profilePicture :{ type: Sequelize.STRING },
-    idPicture:{ type: Sequelize.STRING },
+      profilePicture: { type: Sequelize.STRING },
+      idPicture: { type: Sequelize.STRING },
+
+      education: { type: Sequelize.STRING },
+      experiance: { type: Sequelize.STRING },
+      country: { type: Sequelize.STRING },
+      gender: { type: Sequelize.STRING },
+      age: { type: Sequelize.INTEGER },
       slug: {
         type: Sequelize.STRING,
         unique: true,
