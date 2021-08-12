@@ -42,6 +42,7 @@ const generateToken = (user) => {
     id: user.id,
     firstName: user.firstName,
     lastName: user.lastName,
+    profilePicture:user.profilePicture,
     email: user.email,
     type: user.type,
     exp: Date.now() + JWT_EXPIRATION_MS,
