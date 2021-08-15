@@ -20,7 +20,7 @@ exports.ideaCreat = async (req, res, next) => {
       }`;
     }
 
-    req.body.ownerId = req.user.id;
+    req.body.Id = req.user.id;
 
     const newIdea = await Idea.create(req.body);
     res.status(201).json(newIdea);
@@ -32,20 +32,7 @@ exports.ideaCreat = async (req, res, next) => {
 exports.ideaList = async (req, res) => {
   try {
     const ideas = await Idea.findAll({
-      attributes: {
-        exclude: ["updatedAt"],
-      },
-    //   include: {
-    //     model: User,
-    //     as: "users",
-    //     required: false,
-    //     attributes: ["id"],
-    //     through: {
-    //       model: User_idea,
-    //       as: "userIdeas",
-    //       attributes: ["ideaId", "investorId"],
-    //     },
-    //  },
+     
     });
     res.json(ideas);
   } catch (error) {
@@ -71,36 +58,3 @@ exports.fundIdea = async (req, res, next) => {
   }
 };
 
-// exports.checkout = async (req, res, next) => {
-//   const newOrder = await Order.create({ buyerId: req.user.id });
-//   const cart = req.body.map((item) => ({
-//     ...item,
-//     orderId: newOrder.id,
-//     itemId: item.productId,
-//   }));
-
-//   await Cart.bulkCreate(cart);
-
-//   const finalOrder = {
-//     ...newOrder.toJSON(),
-//     items: req.body,
-//   };
-//   res.status(201).json(finalOrder);
-// };
-
-// exports.fundCreat = async (req, res, next) => {
-//   try {
-//     req.body.ideaId = req.idea.id;
-//     req.body.investorId = req.user.id;
-
-//     const newFund = await Idea.update(req.body);
-//     res.status(201).json(newFund);
-
-//     next({
-//       status: 401,
-//       message: "you can not create a Message",
-//     });
-//   } catch (error) {
-//     next(error);
-//   }
-// };

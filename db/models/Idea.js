@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   Idea.associate = (models) => {
     models.User.hasMany(Idea, {
       foreignKey: "ownerId",
-      // as: "ideas",
+       as: "ideas",
     });
     Idea.belongsTo(models.User, {
       foreignKey: "ownerId",
