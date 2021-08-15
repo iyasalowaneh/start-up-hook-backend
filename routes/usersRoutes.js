@@ -9,9 +9,22 @@ const {
   signup,
   signin,
   updateUser,
+  usersList,
 } = require("../controllers/usersController");
 
 const router = express.Router();
+
+router.param("userId", async (req, res, next, userId) => {
+  const user = await fetchUser(userId, next);
+  if (user) {
+    req.user = user;
+    next();
+  } else {
+    const err = new Error("user not found");
+    err.status = 404;
+    next(err);
+  }
+});
 
 router.post(
   "/signup",
@@ -33,5 +46,6 @@ router.put(
 
   updateUser
 );
+router.get("/users", usersList);
 
 module.exports = router;
