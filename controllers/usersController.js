@@ -42,7 +42,7 @@ const generateToken = (user) => {
     id: user.id,
     firstName: user.firstName,
     lastName: user.lastName,
-    profilePicture:user.profilePicture,
+    profilePicture: user.profilePicture,
     email: user.email,
     type: user.type,
     exp: Date.now() + JWT_EXPIRATION_MS,
@@ -58,6 +58,27 @@ exports.updateUser = async (req, res, next) => {
     }
     await req.user.update(req.body);
     res.status(201).json(req.user);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.fetchUser = async (userId, next) => {
+  try {
+    const user = await User.findByPk(userId);
+
+    return user;
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.usersList = async (req, res, next) => {
+  try {
+    const users = await User.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+    });
+    res.json(users);
   } catch (error) {
     next(error);
   }
