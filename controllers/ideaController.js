@@ -1,4 +1,4 @@
-const { Idea,User_Idea } = require("../db/models");
+const { Idea, User_Idea } = require("../db/models");
 
 exports.fetchIdea = async (ideaId, next) => {
   try {
@@ -31,9 +31,6 @@ exports.ideaCreat = async (req, res, next) => {
 
 exports.ideaList = async (req, res) => {
   try {
-    const ideas = await Idea.findAll({
-      
-    });
     const ideas = await Idea.findAll();
     res.json(ideas);
   } catch (error) {
@@ -41,21 +38,19 @@ exports.ideaList = async (req, res) => {
   }
 };
 
-
-
 exports.fundIdea = async (req, res, next) => {
- 
   try {
-    req.body.investorId=req.user.id
+    req.body.investorId = req.user.id;
     req.body.ideaId = req.idea.id;
     const idea = await Idea.findByPk(req.body.ideaId);
-    if(idea){
-    await User_Idea.create(req.body)
-    await idea.update({recievedFund:parseInt(idea.recievedFund)+parseInt(req.body.amount)})
-  }
+    if (idea) {
+      await User_Idea.create(req.body);
+      await idea.update({
+        recievedFund: parseInt(idea.recievedFund) + parseInt(req.body.amount),
+      });
+    }
     res.status(201).json(idea);
   } catch (error) {
     next(error);
   }
 };
-
