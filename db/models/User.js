@@ -23,5 +23,17 @@ module.exports = (sequelize, DataTypes) => {
   });
   SequelizeSlugify.slugifyModel(User, { source: ["firstName", "lastName"] });
 
+  User.associate = (models) => {
+    User.belongsToMany(models.Idea, {
+      through: models.User_Idea,
+      foreignKey: "investorId",
+      as:"users"
+    });
+    models.Idea.belongsToMany(User, {
+      through: models.User_Idea,
+      foreignKey: "ideaId",
+      as:"ideas"
+    });
+  };
   return User;
 };

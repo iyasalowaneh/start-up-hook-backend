@@ -4,6 +4,7 @@ const {
   ideaCreat,
   fetchIdea,
   ideaList,
+  fundIdea,
 } = require("../controllers/ideaController");
 const express = require("express");
 
@@ -43,6 +44,12 @@ router.post(
     { name: "ideaPdf", maxCount: 1 },
   ]),
   ideaCreat
+);
+
+router.put(
+  "/:ideaId",
+  passport.authenticate("jwt", { session: false }),
+  fundIdea
 );
 
 module.exports = router;

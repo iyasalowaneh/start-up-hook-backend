@@ -1,4 +1,4 @@
-const { Idea } = require("../db/models");
+const { Idea,User_Idea } = require("../db/models");
 
 exports.fetchIdea = async (ideaId, next) => {
   try {
@@ -20,7 +20,8 @@ exports.ideaCreat = async (req, res, next) => {
       }`;
     }
 
-    req.body.userId = req.user.id;
+    req.body.ownerId = req.user.id;
+
     const newIdea = await Idea.create(req.body);
     res.status(201).json(newIdea);
   } catch (error) {
@@ -30,9 +31,31 @@ exports.ideaCreat = async (req, res, next) => {
 
 exports.ideaList = async (req, res) => {
   try {
+    const ideas = await Idea.findAll({
+      
+    });
     const ideas = await Idea.findAll();
     res.json(ideas);
   } catch (error) {
     res.status(500).json({ message: "Server Error" });
   }
 };
+
+
+
+exports.fundIdea = async (req, res, next) => {
+ 
+  try {
+    req.body.investorId=req.user.id
+    req.body.ideaId = req.idea.id;
+    const idea = await Idea.findByPk(req.body.ideaId);
+    if(idea){
+    await User_Idea.create(req.body)
+    await idea.update({recievedFund:parseInt(idea.recievedFund)+parseInt(req.body.amount)})
+  }
+    res.status(201).json(idea);
+  } catch (error) {
+    next(error);
+  }
+};
+
