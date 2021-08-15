@@ -30,11 +30,7 @@ exports.ideaCreat = async (req, res, next) => {
 
 exports.ideaList = async (req, res) => {
   try {
-    const ideas = await Idea.findAll({
-      attributes: {
-        exclude: ["createdAt", "updatedAt"],
-      },
-    });
+    const ideas = await Idea.findAll();
     res.json(ideas);
   } catch (error) {
     res.status(500).json({ message: "Server Error" });
