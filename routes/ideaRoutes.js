@@ -49,6 +49,7 @@ router.post(
 router.put(
   "/:ideaId",
   passport.authenticate("jwt", { session: false }),
+  upload.single("agreement"),
   fundIdea
 );
 
