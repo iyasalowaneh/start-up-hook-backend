@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     country: { type: DataTypes.STRING },
     gender: { type: DataTypes.STRING },
     age: { type: DataTypes.INTEGER },
+    wallet: { type: DataTypes.INTEGER, defaultValue: 0 },
 
     slug: {
       type: DataTypes.STRING,
@@ -27,12 +28,12 @@ module.exports = (sequelize, DataTypes) => {
     User.belongsToMany(models.Idea, {
       through: models.User_Idea,
       foreignKey: "investorId",
-      as:"users"
+      as: "users",
     });
     models.Idea.belongsToMany(User, {
       through: models.User_Idea,
       foreignKey: "ideaId",
-      as:"ideas"
+      as: "ideas",
     });
   };
   return User;

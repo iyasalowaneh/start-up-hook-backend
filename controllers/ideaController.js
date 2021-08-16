@@ -40,6 +40,11 @@ exports.ideaList = async (req, res) => {
 
 exports.fundIdea = async (req, res, next) => {
   try {
+    if (req.file) {
+      req.body.agreement = `http://${req.get("host")}/media/${
+        req.file.filename
+      }`;
+    }
     req.body.investorId = req.user.id;
     req.body.ideaId = req.idea.id;
     const idea = await Idea.findByPk(req.body.ideaId);
