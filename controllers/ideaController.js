@@ -38,6 +38,16 @@ exports.ideaList = async (req, res) => {
   }
 };
 
+
+exports.ideaUser = async (req, res) => {
+  try {
+    const ideaUsers = await User_Idea.findAll();
+    res.json(ideaUsers);
+  } catch (error) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 exports.fundIdea = async (req, res, next) => {
   try {
     if (req.file) {
