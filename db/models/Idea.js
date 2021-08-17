@@ -8,8 +8,8 @@ module.exports = (sequelize, DataTypes) => {
     ideaPdf: { type: DataTypes.STRING },
     fundType: { type: DataTypes.STRING },
     fundAmount: { type: DataTypes.INTEGER },
-    recievedFund:{type: DataTypes.INTEGER ,
-      defaultValue:0},
+    recievedFund: { type: DataTypes.INTEGER, defaultValue: 0 },
+    status: { type: DataTypes.BOOLEAN },
     slug: {
       type: DataTypes.STRING,
       unique: true,
@@ -25,9 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     Idea.belongsTo(models.User, {
       foreignKey: "ownerId",
     });
-  }
-
-
+  };
 
   return Idea;
 };

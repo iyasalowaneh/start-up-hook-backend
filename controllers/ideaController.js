@@ -38,7 +38,6 @@ exports.ideaList = async (req, res) => {
   }
 };
 
-
 exports.ideaUser = async (req, res) => {
   try {
     const ideaUsers = await User_Idea.findAll();
@@ -65,6 +64,16 @@ exports.fundIdea = async (req, res, next) => {
       });
     }
     res.status(201).json(idea);
+  } catch (error) {
+    next(error);
+  }
+};
+exports.ideaUpdate = async (req, res, next) => {
+  try {
+    if (req.user.type !== "admin")
+      throw { status: 401, message: "you do not have access" };
+    await req.idea.update(req.body);
+    res.status(201).json(req.idea);
   } catch (error) {
     next(error);
   }

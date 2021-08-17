@@ -1,39 +1,27 @@
 const SequelizeSlugify = require("sequelize-slugify");
 module.exports = (sequelize, DataTypes) => {
   const Message = sequelize.define("Message", {
-    message: {
+    content: {
       type: DataTypes.STRING,
-    },
-    image: {
-      type: DataTypes.STRING,
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    timestamp: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    received: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
     },
   });
   SequelizeSlugify.slugifyModel(Message, {
     source: ["name"],
   });
-
   Message.associate = (models) => {
-    models.Chat.hasMany(Message, {
-      foreignKey: "chatId",
-      as: "message",
-      allowNull: false,
-      onDelete: "cascade",
-      hooks: true,
+    models.User.hasMany(Message, {
+      foreignKey: "senderId",
+      as: "Messages",
     });
-    Message.belongsTo(models.Chat, { foreignKey: "chatId" });
+    Message.belongsTo(models.User, {
+      foreignKey: "senderId",
+    });
+    models.User.hasMany(Message, {
+      foreignKey: "reciverId",
+    });
+    Message.belongsTo(models.User, {
+      foreignKey: "reciverId",
+    });
   };
-
   return Message;
 };

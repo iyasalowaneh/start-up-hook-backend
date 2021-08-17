@@ -7,8 +7,7 @@ const path = require("path");
 //routes
 const userRoutes = require("./routes/usersRoutes");
 const ideasRoutes = require("./routes/ideaRoutes");
-const messageRoutes = require("./routes/messageRoutes");
-const chatRoutes = require("./routes/chatRoutes");
+const messagesRoutes = require("./routes/messageRoutes");
 
 const app = express();
 app.use(cors());
@@ -22,8 +21,7 @@ passport.use(jwtStrategy);
 //Routes
 app.use("/", userRoutes);
 app.use("/ideas", ideasRoutes);
-app.use("/messages", messageRoutes);
-app.use("/chats", chatRoutes);
+app.use("/", messagesRoutes);
 app.use("/media", express.static(path.join(__dirname, "media")));
 
 //error middleware
