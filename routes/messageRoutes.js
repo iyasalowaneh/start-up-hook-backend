@@ -1,41 +1,31 @@
 const express = require("express");
-const upload = require("../middleware/multer");
+
 const passport = require("passport");
-
-const router = express.Router();
-
-const {
-  messageDelete,
+let {
+  messageCreat,
   messageList,
-  messageCreate,
   fetchMessage,
 } = require("../controllers/messageController");
+let { fetchUser } = require("../controllers/usersController");
 
-router.param("messageId", async (req, res, next, messageId) => {
-  const message = await fetchMessage(messageId, next);
-  if (message) {
-    req.message = message;
+const router = express.Router();
+router.param("senderId", async (req, res, next, senderId) => {
+  const user = await fetchUser(senderId, next);
+  if (user) {
+    req.user = user;
     next();
   } else {
-    const err = new Error("Message Not Found");
+    const err = new Error("user not found");
     err.status = 404;
     next(err);
   }
 });
 
-router.get("/", messageList);
-
+router.get("/messages", messageList);
 router.post(
-  "/",
+  "/messageCreat",
   passport.authenticate("jwt", { session: false }),
-  upload.single("image"),
-  messageCreate
-);
-
-router.delete(
-  "/:messageId",
-  passport.authenticate("jwt", { session: false }),
-  messageDelete
+  messageCreat
 );
 
 module.exports = router;

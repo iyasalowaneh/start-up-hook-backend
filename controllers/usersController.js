@@ -45,6 +45,7 @@ const generateToken = (user) => {
     profilePicture: user.profilePicture,
     email: user.email,
     type: user.type,
+    slug: user.slug,
     exp: Date.now() + JWT_EXPIRATION_MS,
   };
   const token = jwt.sign(payload, "giveitasecretkey");

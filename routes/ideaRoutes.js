@@ -5,7 +5,8 @@ const {
   fetchIdea,
   ideaList,
   fundIdea,
-  ideaUser
+  ideaUser,
+  ideaUpdate,
 } = require("../controllers/ideaController");
 const express = require("express");
 
@@ -55,4 +56,9 @@ router.put(
   fundIdea
 );
 
+router.put(
+  "/idea/:ideaId",
+  passport.authenticate("jwt", { session: false }),
+  ideaUpdate
+);
 module.exports = router;
