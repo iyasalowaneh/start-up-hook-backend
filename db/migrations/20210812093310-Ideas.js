@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       ideaName: { type: Sequelize.STRING, allowNull: false },
-      ideaDescription: { type: Sequelize.STRING, allowNull: false },
+      ideaDescription: { type: Sequelize.TEXT, allowNull: false },
       ideaPicture: { type: Sequelize.STRING },
       ideaPdf: { type: Sequelize.STRING },
       fundType: { type: Sequelize.STRING, allowNull: false },
