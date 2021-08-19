@@ -38,7 +38,7 @@ module.exports = {
       idPicture: { type: Sequelize.STRING },
 
       education: { type: Sequelize.STRING },
-      experiance: { type: Sequelize.STRING },
+      experiance: { type: Sequelize.TEXT },
       country: { type: Sequelize.STRING },
       gender: { type: Sequelize.STRING },
       age: { type: Sequelize.INTEGER },
