@@ -8,6 +8,7 @@ const {
 	ideaUser,
 	ideaUpdate,
 	donorIdea,
+	donorUser,
 } = require("../controllers/ideaController");
 const express = require("express");
 
@@ -39,6 +40,7 @@ router.param("ideaId", async (req, res, next, ideaId) => {
 
 router.get("/", ideaList);
 router.get("/ideausers", ideaUser);
+router.get("/donorusers", donorUser);
 
 router.post(
 	"/",
